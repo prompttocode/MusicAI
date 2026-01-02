@@ -54,7 +54,7 @@ const getNewestFile = (dir) => {
 };
 
 // --- TỰ ĐỘNG DỌN DẸP ---
-const CLEANUP_MAX_AGE_SECONDS = 300; // 1 giờ
+const CLEANUP_MAX_AGE_SECONDS = 3600; // 1 giờ
 
 const cleanupOldFiles = (dir, maxAgeSeconds) => {
   console.log(
