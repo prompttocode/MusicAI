@@ -12,13 +12,19 @@ app.use(express.json());
 // 1. Đường dẫn file chạy music-cli (Trong venv)
 const MUSIC_CLI_PATH = path.join(__dirname, "venv", "bin", "music-cli");
 
-// 2. Thư mục music-cli nhả file ra (Mặc định trên Mac/Linux)
-const SOURCE_DIR = path.join(os.homedir(), ".config", "music-cli", "ai_music");
+// 2. Thư mục "home" giả cho music-cli để nó ghi config và file vào đây
+const CLI_CONFIG_DIR = path.join(__dirname, "temp", "cli-config");
 
-// 3. Thư mục Web Public của dự án (Nơi mình sẽ lưu file để tạo link)
+// 3. Đường dẫn nguồn nơi music-cli sẽ thực sự tạo ra file nhạc
+const SOURCE_DIR = path.join(CLI_CONFIG_DIR, "music-cli", "ai_music");
+
+// 4. Thư mục Web Public của dự án (Nơi mình sẽ lưu file để tạo link)
 const PUBLIC_DIR = path.join(__dirname, "public", "music");
 
-// Tạo thư mục public/music nếu chưa có
+// Tạo các thư mục cần thiết nếu chưa có
+if (!fs.existsSync(SOURCE_DIR)) {
+  fs.mkdirSync(SOURCE_DIR, { recursive: true });
+}
 if (!fs.existsSync(PUBLIC_DIR)) {
   fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 }
@@ -101,7 +107,7 @@ const handleMusicGeneration = (model, req, res) => {
 
   console.log(`\n🎵 Đang tạo [${model}]: "${userPrompt}" (${time}s)...`);
 
-  const command = `"${MUSIC_CLI_PATH}" ai play -m ${model} -d ${time} -p "${userPrompt}"`;
+  const command = `XDG_CONFIG_HOME="${CLI_CONFIG_DIR}" "${MUSIC_CLI_PATH}" ai play -m ${model} -d ${time} -p "${userPrompt}"`;
 
   exec(command, (error, stdout, stderr) => {
     // The command can "fail" if playback doesn't work, but the file is still created.
@@ -185,7 +191,7 @@ const PORT = 3000;
 
 // --- KHỞI ĐỘNG DAEMON & SERVER ---
 console.log("🎵 Khởi động music-cli daemon...");
-const daemonCommand = `"${MUSIC_CLI_PATH}" daemon start`;
+const daemonCommand = `XDG_CONFIG_HOME="${CLI_CONFIG_DIR}" "${MUSIC_CLI_PATH}" daemon start`;
 
 exec(daemonCommand, (err, stdout, stderr) => {
   // Thường thì daemon sẽ không báo lỗi nếu đã chạy, chỉ in ra stdout/stderr

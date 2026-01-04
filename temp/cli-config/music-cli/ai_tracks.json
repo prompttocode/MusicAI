@@ -1,0 +1,9 @@
+[
+  {
+    "prompt": "Thunder and lightning on a stormy day",
+    "file_path": "/Users/namdeptrai/Documents/backend/music-generator-api/temp/cli-config/music-cli/ai_music/ai_music_d773057d.wav",
+    "timestamp": "2026-01-02T22:48:30.541378",
+    "duration": 15,
+    "model": "audioldm-s-full-v2"
+  }
+]
