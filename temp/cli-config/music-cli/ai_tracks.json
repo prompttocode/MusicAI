@@ -5,5 +5,19 @@
     "timestamp": "2026-01-02T22:48:30.541378",
     "duration": 15,
     "model": "audioldm-s-full-v2"
+  },
+  {
+    "prompt": "Cat",
+    "file_path": "/Users/namdeptrai/Documents/backend/music-generator-api/temp/cli-config/music-cli/ai_music/ai_music_79a2813b.wav",
+    "timestamp": "2026-01-05T11:27:14.538810",
+    "duration": 60,
+    "model": "audioldm-s-full-v2"
+  },
+  {
+    "prompt": "Make me hear dog barking sounds",
+    "file_path": "/Users/namdeptrai/Documents/backend/music-generator-api/temp/cli-config/music-cli/ai_music/ai_music_f328e7d0.wav",
+    "timestamp": "2026-01-05T11:29:18.845050",
+    "duration": 60,
+    "model": "audioldm-s-full-v2"
   }
 ]
